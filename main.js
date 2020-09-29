@@ -31,6 +31,7 @@ function setBgGreet() {
   let today = new Date(),
     hour = today.getHours();
 
+    
   if (hour < 12) {
     //Morning
     document.body.style.backgroundImage = "url('./img/Morning.jpg')";
@@ -51,7 +52,7 @@ function setBgGreet() {
 
 function setName(e) {
     if (e.type === 'keypress') {
-                
+
     } else {
         localStorage.setItem('name', e.target.innerText)
     }
