@@ -13,9 +13,7 @@ function showTime() {
 
   hour = hour % 12 || 12;
 
-  time.innerHTML = `${hour}<span>:</span>${addZero(min)}<span>:</span>${addZero(
-    sec
-  )}`;
+  time.innerHTML = `${hour}<span>:</span>${addZero(min)}<span>:</span>${addZero(sec)}${amPm}`;
 
   setTimeout(showTime, 1000);
 }
@@ -31,7 +29,6 @@ function setBgGreet() {
   let today = new Date(),
     hour = today.getHours();
 
-    
   if (hour < 12) {
     //Morning
     document.body.style.backgroundImage = "url('./img/Morning.jpg')";
@@ -48,38 +45,62 @@ function setBgGreet() {
   }
 }
 
+
+//Get name
+function getName() {
+  if (localStorage.getItem("name") === null) {
+    name.textContent = "[Enter Name]";
+  } else {
+    name.textContent = localStorage.getItem("name");
+  }
+}
+
 //Set name
 
 function setName(e) {
-    if (e.type === 'keypress') {
+  if (e.type === "keypress") {
+    if (e.witch == 13 || e.keyCode == 13) {
+      localStorage.setItem("name", e.target.innerText);
+      name.blur();
+    }
+  } else {
+    localStorage.setItem("name", e.target.innerText);
+  }
+}
 
-    } else {
-        localStorage.setItem('name', e.target.innerText)
-    }
-}
-//Get name
-function getName () {
-    if (localStorage.getItem('name') === null) {
-        name.textContent = '[Enter Name]';
-    } else {
-        name.textContent = localStorage.getItem('name');
-    }
-}
 
 //Get focus
-function getFocus () {
-    if (localStorage.getItem('focus') === null) {
-        focus.textContent = '[Enter Focus]';
-    } else {
-        focus.textContent = localStorage.getItem('focus');
-    }
+function getFocus() {
+  if (localStorage.getItem("focus") === null) {
+    focus.textContent = "[Enter Focus]";
+  } else {
+    focus.textContent = localStorage.getItem("focus");
+  }
 }
 
-name.addEventListener('keypress', setName);
-name.addEventListener('blure', setName);
+//Set focus
+
+function setFocus(e) {
+  if (e.type === "keypress") {
+    if (e.witch == 13 || e.keyCode == 13) {
+      localStorage.setItem("focus", e.target.innerText);
+      focus.blur();
+    }
+  } else {
+    localStorage.setItem("focus", e.target.innerText);
+  }
+}
+
+
+name.addEventListener("keypress", setName);
+name.addEventListener("blur", setName);
+focus.addEventListener("keypress", setFocus);
+focus.addEventListener("blur", setFocus);
+
 
 //Run
 showTime();
 setBgGreet();
 getName();
 getFocus();
+
